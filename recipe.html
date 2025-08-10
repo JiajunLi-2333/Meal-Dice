@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html{
+                font-size: 0.78125vw;
+                overflow-x: hidden;
+            }
+
+            .screen1{
+                position: relative;
+                width: 100%;
+                height: 100vh;
+                background-image: url(/public/image/bgc.jpg);
+                background-size: cover;
+            }
+            .rom-img{
+                position:absolute;
+                width: 127em;
+                top: 70%;
+                
+            }
+            /* 所有图片的基本样式 */
+            .pic1, .pic2, .pic3, .pic4, .pic5, .pic6, .pic7 {
+                position: absolute;
+                bottom: 0;
+                object-fit: cover;
+                border-radius: 2em;
+            }
+
+            .pic1,
+            .pic7{
+                width: 13.52em; /* 11.266666666em * 1.2 */
+                height: 18.024em; /* 15.02em * 1.2 */
+                bottom: 4.024em; /* 3.35em * 1.2 */
+            }
+
+            .pic2,
+            .pic6{
+                width: 15.68em; /* 13.066666666em * 1.2 */
+                height: 20.904em; /* 17.42em * 1.2 */
+                bottom: 3.07em;
+            }
+
+            .pic3,
+            .pic5{
+                width: 17.84em; /* 14.866666666em * 1.2 */
+                height: 23.784em; /* 19.82em * 1.2 */
+                bottom: 2.07em
+            }
+
+            .pic4{
+                width: 22.5em; /* 18.75em * 1.2 */
+                height: 30em; /* 25em * 1.2 */
+                left: 55.125em;
+                z-index: 1;
+                bottom: 0;
+            }
+
+            /* 初始位置：所有图片都堆叠在中心，被pic4遮挡 */
+            .pic1,
+            .pic2,
+            .pic3{
+                left: 55.125em;
+                z-index: -1; /* 在pic4后面，被完全遮挡 */
+            }
+
+            .pic5,
+            .pic6,
+            .pic7{
+                left: 55.125em; /* 改为left，与pic4完全重叠 */
+                z-index: -1; /* 在pic4后面，被完全遮挡 */
+            }
+            .screen2{
+                width: 100%;
+                height: 100vh;
+                background-color: lightcoral;
+                padding: 2em;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class = "screen1">
+            <div class = "rom-img">
+                <img src="" alt="" class = "pic1 ">
+                <img src="" alt="" class = "pic2 ">
+                <img src="" alt="" class = "pic3 ">
+                <img src="" alt="" class = "pic4 ">
+                <img src="" alt="" class = "pic5 ">
+                <img src="" alt="" class = "pic6 "> 
+                <img src="" alt="" class = "pic7 ">
+            </div>
+        </div>
+        <div class = "screen2">
+            <h3>Minced Pork Eggplant</h3>
+            <div class = "ingredients">
+                <h4>Ingredients:</h4>
+                <ul>
+                    <li>Eggplant</li>
+                    <li>Minced Pork</li>
+                    <li>Garlic</li>
+                    <li>Douban</li>
+                    <li>Scallion</li>
+                    <li>Wine</li>
+                    <li>Salt</li>
+                </ul>
+            </div>
+            <div class = "steps">
+                <h4>Instructions:</h4>
+                <p>To make minced pork eggplant, start by slicing one large eggplant into bite-sized pieces and soaking them in salted water for 10 minutes to reduce bitterness. Meanwhile, heat oil in a pan and sauté minced garlic and chopped onions until fragrant. Add about 200 grams of minced pork and cook until browned. Drain the eggplant and add it to the pan, stir-frying until it begins to soften. Pour in a sauce made from soy sauce, oyster sauce, a touch of sugar, and a splash of water or chicken broth. Cover and simmer for 5–10 minutes until the eggplant is tender and the flavors are well absorbed. Finish with a drizzle of sesame oil and chopped green onions for extra aroma. Serve hot with steamed rice.</p>
+            </div>
+            <div class = "cooking time">
+                <h4>Cooking Time:</h4>
+                <p>30 minutes</p>
+            </div>
+        </div>
+
+        <script type ="module" src = "detail.js"></script>
+
+    </body>
+</html>

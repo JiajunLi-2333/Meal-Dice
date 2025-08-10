@@ -9,7 +9,6 @@ const lenis = new Lenis ({
     smoothWheel: true,
     autoRaf: true,
 });
-
 const scrollbox = {
         wrapper: document.querySelector(".wrapper"),
         cardsbox: document.querySelector(".cardsbox"),
@@ -44,6 +43,7 @@ const scrollbox = {
     };
     scrollbox.init();
 
+//Home Page GSAP effect
 //TODO title effect 
 function GSAP_titleEffect(){
     const title = document.querySelector(".title");
@@ -57,11 +57,9 @@ function GSAP_titleEffect(){
     const initialText = `${year}- ${month}${day}`;
     const finalText = "Daily Meal";
 
-    
     title.textContent = initialText;
 
-    //the timeline of character rolling change
-    const tl = gsap.timeline({delay: 1.5}); //
+    const mainTl = gsap.timeline({delay: 1.5}); 
 
     const maxLength = Math.max(initialText.length, finalText.length);
 
@@ -70,13 +68,12 @@ function GSAP_titleEffect(){
         const endChar = finalText[i] || '';
 
         if(startChar !== endChar){
-            tl.to({}, {
-                duration: 2,  
+            mainTl.to({}, {
+                duration: 1,  
                 ease: "power1.inOut",  
                 onUpdate: function() {
                     const progress = this.progress();
                     
-                 
                     let displayChar;
                     if (progress < 0.8) {  
                         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-';
@@ -97,10 +94,9 @@ function GSAP_titleEffect(){
                     }
                     title.textContent = currentText;
                 }
-            }, i * 0.4);  
+            }, i * 0.2);  
 
-
-            tl.set({}, {
+            mainTl.set({}, {
                 onComplete: function() {
                     let correctText = '';
                     for (let j = 0; j <= i; j++) {
@@ -115,13 +111,12 @@ function GSAP_titleEffect(){
         }
     }
 
-    // 最终确保显示完整文本 + 强调效果
-    tl.set({}, {
+    mainTl.set({}, {
         onComplete: function() {
             title.textContent = finalText;
         }
     })
-    .to(title, {  // ✅ 添加完成后的强调动画
+    .to(title, { 
         scale: 1.2,
         duration: 0.3,
         ease: "back.out(1.7)",
@@ -129,8 +124,57 @@ function GSAP_titleEffect(){
         repeat: 1
     });
 
-    return tl;    
+    mainTl.add(GSAP_diceEffect(), 0);
+
+    return mainTl;    
+}
+
+//TODO Dice jumpping and rotation effect
+function GSAP_diceEffect(){
+    const dice = document.querySelector(".Dice");
+
+    if(!dice) return;
+
+    const texts = "Dice"; 
+
+    // 为每个字符创建span，初始状态正常显示
+    dice.innerHTML = texts.split('').map((char, index) => 
+         `<span class="dice-char-${index}" style="display: inline-block;">${char}</span>`
+    ).join('');
+
+    const tl = gsap.timeline();
+
+    texts.split('').forEach((char, index) => {
+        // 一个完整的翻滚动画 - 5圈旋转
+        tl.to(`.dice-char-${index}`, {
+            y: -60,                  
+            rotation: 1800,           
+            scale: 1.1,              
+            duration: 0.3,           
+            ease: "power2.out"
+        })
+        .to(`.dice-char-${index}`, {
+            y: 0,                    
+            scale: 1.0,             
+            duration: 0.2,           
+            ease: "bounce.out"
+        })
+    });
+    
+    return tl;
 }
 GSAP_titleEffect();
 
 
+//Display Page tab jumping
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('.cardsbox_card');
+  if (!card) return;
+
+  const slug = card.dataset.slug;
+  if (!slug) return;
+
+  const url = `recipe.html?slug=${encodeURIComponent(slug)}`;
+  const win = window.open(url, '_blank'); // 新标签
+  if (win) win.opener = null;            // 安全：切断 window.opener
+});
