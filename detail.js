@@ -1,6 +1,7 @@
 import {gsap} from 'gsap';
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import {SplitText} from "gsap/SplitText";
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 // 食谱数据
 const recipeData = {
@@ -19,12 +20,14 @@ const recipeData = {
         instructions: 'To make minced pork eggplant, start by slicing one large eggplant into bite-sized pieces and soaking them in salted water for 10 minutes to reduce bitterness. Meanwhile, heat oil in a pan and sauté minced garlic and chopped onions until fragrant. Add about 200 grams of minced pork and cook until browned. Drain the eggplant and add it to the pan, stir-frying until it begins to soften. Pour in a sauce made from soy sauce, oyster sauce, a touch of sugar, and a splash of water or chicken broth. Cover and simmer for 5–10 minutes until the eggplant is tender and the flavors are well absorbed. Finish with a drizzle of sesame oil and chopped green onions for extra aroma. Serve hot with steamed rice.',
         cookingTime: '25 minutes'
     },
-    'beef-stew': {
-        title: 'Beef Stew',
-        image: 'https://via.placeholder.com/250x180/cccccc/666666?text=Beef+Stew',
-        ingredients: ['Beef', 'Potatoes', 'Carrots', 'Onions', 'Beef Stock', 'Tomato Paste', 'Garlic', 'Thyme'],
-        instructions: 'Cut beef into chunks and season with salt and pepper. Heat oil in a large pot and brown the beef on all sides. Remove beef and sauté diced onions and garlic until softened. Add tomato paste and cook for 1 minute. Return beef to pot, add beef stock, and bring to a boil. Reduce heat and simmer covered for 1 hour. Add potatoes and carrots, continue cooking for 30 minutes until vegetables are tender. Season with thyme, salt, and pepper. Serve hot.',
-        cookingTime: '90 minutes'
+    'cola-chicken-wings': {
+        title: 'Cola Chicken Wings',
+        image: [
+            '/public/images/cola_chicken_wings.jpg'
+        ],
+        ingredients: ['12 chicken wings', '1 can cola', '2 tbsp soy sauce', '1 tbsp dark soy sauce', '2 tbsp cooking wine', 'salt to taste', 'scallion segments', 'ginger slices'],
+        instructions: 'In a bowl, mix cola, soy sauce, dark soy sauce, cooking wine, and salt. Add chicken wings and marinate for at least 30 minutes. Preheat oven to 200°C (400°F). Arrange wings on a baking sheet and bake for 25-30 minutes, basting with marinade halfway through. Garnish with scallions and ginger before serving.',
+        cookingTime: '35 minutes'
     },
     'spaghetti-bolognese': {
         title: 'Spaghetti Bolognese',
@@ -103,7 +106,7 @@ otherImages.forEach((img, index) => {
     }
     
     // 更新烹饪时间
-    const cookingTimeElement = document.querySelector('.cooking.time p');
+    const cookingTimeElement = document.querySelector('.cooking-time p');
     if (cookingTimeElement) {
         cookingTimeElement.textContent = recipe.cookingTime;
     }
@@ -112,7 +115,64 @@ otherImages.forEach((img, index) => {
 // 页面加载完成后更新内容
 document.addEventListener('DOMContentLoaded', () => {
     updateRecipeContent();
+    initScreen2Animation();
 });
+
+// Screen2 SplitText动画初始化
+function initScreen2Animation() {
+    // 等待内容更新完成后再执行动画
+    setTimeout(() => {
+        // 选择screen2中所有需要动画的文本元素
+        const animationElements = [
+            '.screen2 h3',
+            '.screen2 .ingredients h4',
+            '.screen2 .ingredients p',
+            '.screen2 .steps h4', 
+            '.screen2 .steps p',
+            '.screen2 .cooking-time h4',
+            '.screen2 .cooking-time p'
+        ];
+        
+        // 为每个元素创建SplitText实例
+        const splitTexts = animationElements.map(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                return new SplitText(element, {type: "lines", linesClass: "split-line"});
+            }
+            return null;
+        }).filter(split => split !== null);
+        
+        // 创建滚动触发动画
+        ScrollTrigger.create({
+            trigger: '.screen2',
+            start: 'top 80%',
+            onEnter: () => {
+                // 创建时间轴动画
+                const tl = gsap.timeline();
+                
+                // 为每个SplitText实例添加动画
+                splitTexts.forEach((split, index) => {
+                    // 初始状态：所有行都透明且向上偏移
+                    gsap.set(split.lines, {
+                        opacity: 0,
+                        y: 30,
+                        rotationX: 45
+                    });
+                    
+                    // 动画：逐行淡入并向下移动到位置
+                    tl.to(split.lines, {
+                        opacity: 1,
+                        y: 0,
+                        rotationX: 0,
+                        duration: 0.8,
+                        stagger: 0.1,
+                        ease: "power2.out"
+                    }, index * 0.3); // 每个元素之间错开0.3秒
+                });
+            }
+        });
+    }, 100); // 延迟100ms确保内容已更新
+}
 
 // 原有的GSAP动画
 ScrollTrigger.create({

@@ -287,3 +287,98 @@ document.addEventListener('DOMContentLoaded', initNavigation);
 
 // Also initialize after a short delay to ensure all elements are ready
 setTimeout(initNavigation, 500);
+
+// Text Reveal Animation using GSAP
+function initTextRevealAnimations() {
+    // 改进的文本分割函数，保持原始文本格式
+    function splitTextIntoLines(element) {
+        const originalText = element.textContent; // 使用textContent而不是innerHTML
+        const words = originalText.split(' ');
+        
+        // 创建一个临时容器来测量文本
+        const tempDiv = document.createElement('div');
+        tempDiv.style.cssText = window.getComputedStyle(element).cssText;
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.visibility = 'hidden';
+        tempDiv.style.height = 'auto';
+        tempDiv.style.width = element.offsetWidth + 'px';
+        document.body.appendChild(tempDiv);
+        
+        element.innerHTML = '';
+        
+        // 创建包装容器
+        const wrapper = document.createElement('div');
+        wrapper.style.overflow = 'hidden';
+        
+        // 创建单个span包含所有文本，保持正常的文本流
+        const span = document.createElement('span');
+        span.textContent = originalText;
+        span.style.display = 'block';
+        span.style.transform = 'translateY(100%)';
+        
+        wrapper.appendChild(span);
+        element.appendChild(wrapper);
+        
+        // 清理临时元素
+        document.body.removeChild(tempDiv);
+        
+        return [span]; // 返回span数组以保持接口一致
+    }
+    
+    // 为所有需要动画的文本元素应用逐行浮现效果
+    document.querySelectorAll('.reveal-text').forEach(element => {
+        const spans = splitTextIntoLines(element);
+        
+        // 判断元素是否在Contact页面（footer）中
+        const isInContact = element.closest('.footer') !== null;
+        
+        gsap.fromTo(spans, 
+            {
+                y: "100%",
+                opacity: 0
+            },
+            {
+                y: "0%",
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: element,
+                    start: isInContact ? "top 95%" : "top 90%", // Contact页面更早触发
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    });
+}
+
+// 初始化文字浮现动画
+document.addEventListener('DOMContentLoaded', () => {
+    // 确保GSAP和ScrollTrigger已加载
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        initTextRevealAnimations();
+    }
+});
+
+// 导入表单处理功能
+import { RecipeSubmission, initFileUpload } from './formHandler.js';
+// 导入搜索功能
+import { SearchPage } from './searchPage.js';
+
+// 初始化表单功能
+document.addEventListener('DOMContentLoaded', () => {
+    // 初始化食谱提交功能
+    new RecipeSubmission();
+    
+    // 初始化文件上传功能
+    initFileUpload();
+    
+    // 初始化搜索功能
+    new SearchPage();
+    
+    console.log('🎯 Form handlers initialized');
+    console.log('🔍 Search functionality initialized');
+});

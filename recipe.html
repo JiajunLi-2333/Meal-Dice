@@ -15,12 +15,15 @@
                 overflow-x: hidden;
             }
 
+            body{
+                background-color: #fffef7;
+            }
+
             .screen1{
                 position: relative;
                 width: 100%;
                 height: 100vh;
-                background-image: url(/public/images/bgc.jpg);
-                background-size: cover;
+
             }
             .rom-img{
                 position:absolute;
@@ -82,8 +85,62 @@
             .screen2{
                 width: 100%;
                 height: 100vh;
-                background-color: lightcoral;
-                padding: 2em;
+                padding: 4em;
+                font-family: 'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+                font-size: 1.2em;
+            }
+            
+            .screen2 h3 {
+                text-align: center;
+                font-size: 2.5em;
+                margin-bottom: 2em;
+                font-weight: bold;
+            }
+            
+            .screen2 .ingredients,
+            .screen2 .steps {
+                text-align: left;
+                margin-bottom: 2em;
+            }
+            
+            .screen2 .ingredients h4,
+            .screen2 .steps h4 {
+                font-size: 1.5em;
+                margin-bottom: 0.5em;
+                font-weight: bold;
+            }
+            
+            .screen2 .ingredients p,
+            .screen2 .steps p {
+                font-size: 1.1em;
+                line-height: 1.6;
+            }
+            
+            .cooking-time {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+            }
+            
+            .cooking-time h4 {
+                font-size: 1.5em;
+                font-weight: bold;
+                margin: 0;
+            }
+            
+            .cooking-time p {
+                font-size: 1.1em;
+                margin: 0;
+            }
+            
+            /* SplitText动画相关样式 */
+            .split-line {
+                overflow: hidden;
+                display: block;
+            }
+            
+            .screen2 * {
+                transform-style: preserve-3d;
             }
 
         </style>
@@ -104,23 +161,15 @@
             <h3>Minced Pork Eggplant</h3>
             <div class = "ingredients">
                 <h4>Ingredients:</h4>
-                <ul>
-                    <li>Eggplant</li>
-                    <li>Minced Pork</li>
-                    <li>Garlic</li>
-                    <li>Douban</li>
-                    <li>Scallion</li>
-                    <li>Wine</li>
-                    <li>Salt</li>
-                </ul>
+                <p>Eggplant, Minced Pork, Garlic, Douban, Scallion, Wine, Salt</p>
             </div>
             <div class = "steps">
                 <h4>Instructions:</h4>
                 <p>To make minced pork eggplant, start by slicing one large eggplant into bite-sized pieces and soaking them in salted water for 10 minutes to reduce bitterness. Meanwhile, heat oil in a pan and sauté minced garlic and chopped onions until fragrant. Add about 200 grams of minced pork and cook until browned. Drain the eggplant and add it to the pan, stir-frying until it begins to soften. Pour in a sauce made from soy sauce, oyster sauce, a touch of sugar, and a splash of water or chicken broth. Cover and simmer for 5–10 minutes until the eggplant is tender and the flavors are well absorbed. Finish with a drizzle of sesame oil and chopped green onions for extra aroma. Serve hot with steamed rice.</p>
             </div>
-            <div class = "cooking time">
+            <div class = "cooking-time">
                 <h4>Cooking Time:</h4>
-                <p>30 minutes</p>
+                <p>25 minutes</p>
             </div>
         </div>
 
