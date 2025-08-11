@@ -7,13 +7,13 @@ const recipeData = {
     'minced-pork-eggplant': {
         title: 'Minced Pork Eggplant',
         image: [
-            '/public/image/minedpork/mincedpork.png',
-            '/public/image/minedpork/eggplant.jpg',
-            '/public/image/minedpork/garlic.jpg',
-            '/public/image/minedpork/pork.jpg',
-            '/public/image/minedpork/rice.jpg',
-            '/public/image/minedpork/scallion.jpg',
-            '/public/image/minedpork/salt.jpg'
+            '/public/images/minedpork/mincedpork.png',
+            '/public/images/minedpork/eggplant.jpg',
+            '/public/images/minedpork/garlic.jpg',
+            '/public/images/minedpork/pork.jpg',
+            '/public/images/minedpork/rice.jpg',
+            '/public/images/minedpork/scallion.jpg',
+            '/public/images/minedpork/salt.jpg'
         ],
         ingredients: ['Eggplant', 'Minced Pork', 'Garlic', 'Douban', 'Scallion', 'Wine', 'Salt'],
         instructions: 'To make minced pork eggplant, start by slicing one large eggplant into bite-sized pieces and soaking them in salted water for 10 minutes to reduce bitterness. Meanwhile, heat oil in a pan and sauté minced garlic and chopped onions until fragrant. Add about 200 grams of minced pork and cook until browned. Drain the eggplant and add it to the pan, stir-frying until it begins to soften. Pour in a sauce made from soy sauce, oyster sauce, a touch of sugar, and a splash of water or chicken broth. Cover and simmer for 5–10 minutes until the eggplant is tender and the flavors are well absorbed. Finish with a drizzle of sesame oil and chopped green onions for extra aroma. Serve hot with steamed rice.',

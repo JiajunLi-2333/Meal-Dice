@@ -8,22 +8,33 @@
     </head>
     <body>
 
-        <div class = "home">
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Discover</a></li>
-                    <li><a href="#">Share</a></li>
-                    <li><a href="#">Search</a></li>
-                    <li><a href="#">Contact</a></li>
+        <!-- Fixed Navigation Bar -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="/public/images/logo.png" alt="Meal Dice Logo" class="logo-img">
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link" data-section="home">Home</a></li>
+                    <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+                    <li><a href="#discover" class="nav-link" data-section="discover">Discover</a></li>
+                    <li><a href="#share" class="nav-link" data-section="share">Share</a></li>
+                    <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
                 </ul>
-            </nav>
-            <h1 class = "title">Daily Meal</h1>
-            <h1 class = "Dice">Dice</h1>
+                <div class="nav-search">
+                    <button class="search-btn" aria-label="Search">🔍</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class = "home" id="home">
+            <div class="title-container">
+                <h1 class = "title">Meal</h1>
+                <span class = "Dice">Dice</span>
+            </div>
         </div>
         
-        <div class = "About">
+        <div class = "About" id="about">
             <h2>About Meal Dice</h2>
             <section class = "About_content">
                 <h3>Who we are</h3>
@@ -43,7 +54,7 @@
             </section>
         </div>
 
-        <div class = "wrapper">
+        <div class = "wrapper" id="discover">
             <div class = "container">
                 <div class = "cardsbox">
                     <div class = "cardsbox_card" data-slug = "minced-pork-eggplant">
@@ -80,7 +91,7 @@
             </div>
         </div>
         
-        <div class = "share">
+        <div class = "share" id="share">
             <h2>Share Your Dish</h2>
             <form class="share-form">
                 <input type="text" placeholder="Name" name="name" class="form-input name-input">
@@ -104,7 +115,7 @@
             </form>
         </div>
         
-        <footer class="footer">
+        <footer class="footer" id="contact">
             <div class="footer-content">
                 <div class="contact-info">
                     <p class="contact-item">Email: info@mealdice.com</p>
