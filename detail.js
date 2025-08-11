@@ -23,18 +23,34 @@ const recipeData = {
     'cola-chicken-wings': {
         title: 'Cola Chicken Wings',
         image: [
-            '/public/images/cola_chicken_wings.jpg'
+            '/public/images/cola_chicken_wings.jpg',
+            '/public/images/colawings/chicken wings.jpg',
+            '/public/images/colawings/cola.jpg',
+            '/public/images/colawings/cooking wine.jpg',
+            '/public/images/colawings/scallion segments.jpg',
+            '/public/images/colawings/soy sauce.jpg',
+            '/public/images/minedpork/rice.jpg',
+            
         ],
         ingredients: ['12 chicken wings', '1 can cola', '2 tbsp soy sauce', '1 tbsp dark soy sauce', '2 tbsp cooking wine', 'salt to taste', 'scallion segments', 'ginger slices'],
-        instructions: 'In a bowl, mix cola, soy sauce, dark soy sauce, cooking wine, and salt. Add chicken wings and marinate for at least 30 minutes. Preheat oven to 200°C (400°F). Arrange wings on a baking sheet and bake for 25-30 minutes, basting with marinade halfway through. Garnish with scallions and ginger before serving.',
+        instructions: '1. Clean wings, score and marinate with wine for 20 minutes; 2. Heat pan with oil, pan-fry wings until golden on both sides; 3. Add scallions and ginger, stir until fragrant; 4. Pour cola to cover wings; 5. Add soy sauce and dark soy sauce for color; 6. Bring to boil, simmer for 20 minutes; 7. Reduce sauce over high heat',
         cookingTime: '35 minutes'
     },
-    'spaghetti-bolognese': {
-        title: 'Spaghetti Bolognese',
-        image: 'https://via.placeholder.com/250x180/cccccc/666666?text=Spaghetti+Bolognese',
-        ingredients: ['Spaghetti', 'Ground Beef', 'Tomato Sauce', 'Onion', 'Garlic', 'Carrots', 'Celery', 'Red Wine'],
-        instructions: 'Heat olive oil in a large pan and sauté diced onions, carrots, and celery until soft. Add minced garlic and cook for 1 minute. Add ground beef and cook until browned, breaking it up with a spoon. Pour in red wine and let it simmer until reduced. Add tomato sauce, salt, pepper, and herbs. Simmer for 30 minutes, stirring occasionally. Meanwhile, cook spaghetti according to package directions. Drain and serve with the Bolognese sauce, topped with parmesan cheese.',
-        cookingTime: '45 minutes'
+    'scrambled-eggs-with-tomatoes': {
+        title: 'Scrambled Eggs with Tomatoes',
+        image: [
+            '/public/images/scrambled_eggs_tomatoes.jpg',
+            '/public/images/egg/chopped scallions.jpeg',
+            '/public/images/egg/cooking oil.jpeg',
+            '/public/images/egg/egg.jpg',
+            '/public/images/egg/salt to taste.jpeg',
+            '/public/images/egg/tomato.jpg',
+            '/public/images/minedpork/rice.jpg'
+
+        ],
+        ingredients: ['300g chicken breast', '50g peanuts, 6 dried chilies', '1 tbsp Sichuan peppercorns', 'scallion segments', 'garlic slices', '2 tbsp soy sauce', '1 tbsp dark soy sauce', '1 tbsp sugar', '1 tbsp cooking wine', '1 tbsp cornstarch', '1 tbsp black vinegar'],
+        instructions: '1. Beat eggs with a little salt; 2. Cut tomatoes into chunks, peel if desired; 3. Heat pan with oil, pour in eggs and scramble until cooked, set aside; 4. Add oil to pan, sauté scallions, add tomatoes and cook until juicy; 5. Add scrambled eggs back, season and stir well',
+        cookingTime: '25 minutes'
     },
     'chicken-curry': {
         title: 'Chicken Curry',
@@ -94,9 +110,9 @@ otherImages.forEach((img, index) => {
     }
     
     // 更新原料列表
-    const ingredientsList = document.querySelector('.ingredients ul');
-    if (ingredientsList) {
-        ingredientsList.innerHTML = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('');
+    const ingredientsP = document.querySelector('.ingredients p');
+    if (ingredientsP) {
+        ingredientsP.textContent = recipe.ingredients.join(', ');
     }
     
     // 更新制作步骤

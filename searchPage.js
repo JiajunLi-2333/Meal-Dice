@@ -10,7 +10,10 @@ class SearchPage {
     init() {
         this.createSearchPage();
         this.bindSearchButton();
+        // 立即创建并显示AI助手，让它一直可见
+        this.createAIAssistant();
         console.log('🔍 Search functionality initialized');
+        console.log('🐷 AI Assistant is now always visible');
     }
 
     createSearchPage() {
@@ -189,17 +192,221 @@ class SearchPage {
                 max-width: 1200px;
             }
 
-            .search-results-header {
-                margin-bottom: 2rem;
-                font-size: 1.4rem;
-                font-weight: 600;
+            /* 右下角AI助手 - 一直显示 */
+            .ai-assistant {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                width: 70px;
+                height: 70px;
+                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+                border-radius: 50%;
+                border: none;
+                cursor: pointer;
+                box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+                transition: all 0.3s ease;
+                z-index: 9998;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            
+            .ai-assistant.show {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            
+            .ai-assistant:hover {
+                background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+                transform: translateY(-3px) scale(1.1);
+                box-shadow: 0 12px 24px rgba(245, 158, 11, 0.5);
+            }
+            
+            .ai-assistant:active {
+                transform: translateY(-1px) scale(1.05);
+            }
+            
+            .ai-assistant.thinking {
+                animation: pulse 1.5s ease-in-out infinite;
+            }
+            
+            @keyframes pulse {
+                0%, 100% { transform: translateY(-3px) scale(1.1); }
+                50% { transform: translateY(-6px) scale(1.2); }
+            }
+            
+            /* AI 对话框样式 */
+            .ai-dialog {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(4px);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .ai-dialog.show {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .ai-dialog-content {
+                background: white;
+                border-radius: 16px;
+                max-width: 900px; /* 从600px增加到900px */
+                width: 95%;
+                max-height: 85vh;
+                overflow-y: auto;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                transform: translateY(30px) scale(0.95);
+                transition: all 0.3s ease;
+            }
+            
+            .ai-dialog.show .ai-dialog-content {
+                transform: translateY(0) scale(1);
+            }
+            
+            .ai-dialog-header {
+                padding: 2rem 2rem 1rem 2rem;
+                border-bottom: 1px solid #e5e7eb;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .ai-dialog-title {
+                font-size: 1.8rem; /* 从1.5rem增加到1.8rem */
+                font-weight: 700;
+                color: #1f2937;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .ai-dialog-close {
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: #6b7280;
+                cursor: pointer;
+                padding: 0.5rem;
+                border-radius: 8px;
+                transition: all 0.2s ease;
+            }
+            
+            .ai-dialog-close:hover {
+                background: #f3f4f6;
                 color: #374151;
-                text-align: center;
-                padding: 1.5rem;
-                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            }
+            
+            .ai-dialog-body {
+                padding: 2.5rem; /* 从2rem增加到2.5rem */
+            }
+            
+            .ai-suggestion-card {
+                background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
                 border-radius: 12px;
-                border: 1px solid #e5e7eb;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+                padding: 2.5rem; /* 从2rem增加到2.5rem */
+                border: 1px solid #f59e0b;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem; /* 增加段落间距 */
+            }
+            
+            .ai-recipe-title {
+                font-size: 2.2rem; /* 从2rem增加到2.2rem */
+                font-weight: 700;
+                color: #92400e;
+                margin-bottom: 0; /* 移除margin，用gap控制间距 */
+                text-align: center;
+                border-bottom: 2px solid #d97706;
+                padding-bottom: 1.5rem; /* 从1rem增加到1.5rem */
+            }
+            
+            .ai-recipe-section {
+                margin-bottom: 0; /* 移除margin，用gap控制间距 */
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .ai-recipe-section h4 {
+                font-size: 1.5rem; /* 从1.4rem增加到1.5rem */
+                font-weight: 600;
+                color: #92400e;
+                margin-bottom: 0; /* 移除margin，用gap控制间距 */
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .ai-recipe-content {
+                color: #451a03;
+                line-height: 1.8; /* 从1.8保持不变 */
+                font-size: 1.1rem; /* 从1.1rem保持不变 */
+                margin-bottom: 0; /* 移除margin，用gap控制间距 */
+                white-space: pre-line; /* 保持换行格式 */
+            }
+            
+            .ai-ingredients-text {
+                color: #451a03;
+                line-height: 1.7; /* 从1.7保持不变 */
+                font-size: 1.1rem; /* 从1.1rem保持不变 */
+                font-weight: 500;
+                margin-bottom: 0; /* 移除margin */
+            }
+            
+            .ai-cooking-time {
+                color: #92400e;
+                font-weight: 600;
+                font-size: 1.2rem; /* 从1.2rem保持不变 */
+                background: rgba(146, 64, 14, 0.1);
+                padding: 1rem 1.5rem; /* 从0.75rem 1.25rem增加到1rem 1.5rem */
+                border-radius: 8px;
+                display: inline-block;
+                text-align: center;
+                align-self: flex-start; /* 左对齐 */
+            }
+            
+            .ai-loading {
+                text-align: center;
+                padding: 3rem 2rem;
+                color: #6b7280;
+            }
+            
+            .ai-loading-spinner {
+                width: 40px;
+                height: 40px;
+                border: 4px solid #f3f4f6;
+                border-top: 4px solid #f59e0b;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin: 0 auto 1rem auto;
+            }
+            
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            .ai-error {
+                background: #fef2f2;
+                border: 1px solid #fecaca;
+                color: #dc2626;
+                padding: 1rem;
+                border-radius: 8px;
+                text-align: center;
             }
 
             .recipes-table {
@@ -448,6 +655,14 @@ class SearchPage {
                     padding: 1rem 2rem;
                     font-size: 1rem;
                 }
+                
+                .ai-assistant {
+                    width: 60px;
+                    height: 60px;
+                    bottom: 1.5rem;
+                    right: 1.5rem;
+                    font-size: 1.8rem;
+                }
 
                 .recipes-table {
                     font-size: 0.875rem;
@@ -668,6 +883,9 @@ class SearchPage {
         `;
 
         resultsContainer.innerHTML = tableHTML;
+        
+        // 保存当前搜索的食材，供 AI 建议使用
+        this.currentSearchIngredient = searchTerm;
     }
 
     showLoading() {
@@ -706,6 +924,192 @@ class SearchPage {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+    
+    // AI 助手功能 - 一直显示在右下角
+    createAIAssistant() {
+        console.log('🐷 Creating permanent AI Assistant...');
+        
+        // 检查是否已存在AI助手
+        let assistant = document.getElementById('ai-assistant');
+        if (!assistant) {
+            // 创建AI助手按钮
+            const assistantHTML = `
+                <button id="ai-assistant" class="ai-assistant" title="Get AI recipe suggestion">
+                    🐷
+                </button>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', assistantHTML);
+            assistant = document.getElementById('ai-assistant');
+            
+            // 绑定点击事件
+            assistant.addEventListener('click', () => {
+                console.log('🐷 AI Assistant clicked!');
+                this.getAISuggestion();
+            });
+            
+            console.log('🐷 AI Assistant created and always visible');
+        }
+    }
+    
+    async getAISuggestion() {
+        const assistant = document.getElementById('ai-assistant');
+        
+        // AI助手思考动画
+        assistant.classList.add('thinking');
+        assistant.disabled = true;
+        
+        // 显示对话框
+        this.showAIDialog();
+        
+        try {
+            // 构建请求数据 - 如果没有搜索的食材，就让AI随机推荐
+            let ingredients = [];
+            if (this.currentSearchIngredient) {
+                ingredients = [this.currentSearchIngredient];
+                console.log('🤖 Requesting AI suggestion for searched ingredient:', ingredients);
+            } else {
+                // 没有搜索的食材，让AI随机推荐
+                ingredients = ['surprise me'];
+                console.log('🤖 Requesting random AI recipe suggestion');
+            }
+            
+            const response = await fetch(`${this.apiBaseUrl}/suggest-recipe`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ingredients })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.displayAISuggestion(result.suggestion);
+            } else {
+                this.showAIError(result.error || 'Failed to get AI suggestion');
+            }
+            
+        } catch (error) {
+            console.error('❌ AI suggestion error:', error);
+            this.showAIError('Failed to connect to AI service. Please try again.');
+        } finally {
+            // 移除AI助手思考动画
+            assistant.classList.remove('thinking');
+            assistant.disabled = false;
+        }
+    }
+    
+    showAIDialog() {
+        // 检查是否已存在对话框
+        let dialog = document.getElementById('ai-dialog');
+        if (!dialog) {
+            // 创建对话框
+            const dialogHTML = `
+                <div id="ai-dialog" class="ai-dialog">
+                    <div class="ai-dialog-content">
+                        <div class="ai-dialog-header">
+                            <h3 class="ai-dialog-title">
+                                🤖 AI Recipe Suggestion
+                            </h3>
+                            <button class="ai-dialog-close" id="ai-dialog-close">&times;</button>
+                        </div>
+                        <div class="ai-dialog-body" id="ai-dialog-body">
+                            <!-- AI 建议内容将在这里显示 -->
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', dialogHTML);
+            dialog = document.getElementById('ai-dialog');
+            
+            // 绑定关闭按钮
+            const closeBtn = document.getElementById('ai-dialog-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    this.hideAIDialog();
+                });
+            }
+            
+            // 点击背景关闭
+            dialog.addEventListener('click', (e) => {
+                if (e.target === dialog) {
+                    this.hideAIDialog();
+                }
+            });
+        }
+        
+        // 显示加载状态
+        const dialogBody = document.getElementById('ai-dialog-body');
+        dialogBody.innerHTML = `
+            <div class="ai-loading">
+                <div class="ai-loading-spinner"></div>
+                <p>🤖 AI is cooking up a suggestion...</p>
+                <p style="font-size: 0.9rem; color: #9ca3af;">This might take a few seconds</p>
+            </div>
+        `;
+        
+        // 显示对话框
+        dialog.classList.add('show');
+    }
+    
+    hideAIDialog() {
+        const dialog = document.getElementById('ai-dialog');
+        if (dialog) {
+            dialog.classList.remove('show');
+        }
+    }
+    
+    displayAISuggestion(suggestion) {
+        const dialogBody = document.getElementById('ai-dialog-body');
+        
+        const suggestionHTML = `
+            <div class="ai-suggestion-card">
+                <h3 class="ai-recipe-title">${this.escapeHtml(suggestion.title)}</h3>
+                
+                <div class="ai-recipe-section">
+                    <h4>🥗 Ingredients:</h4>
+                    <div class="ai-ingredients-text">
+                        ${this.escapeHtml(suggestion.ingredients.join(', '))}
+                    </div>
+                </div>
+                
+                <div class="ai-recipe-section">
+                    <h4>📝 Instructions:</h4>
+                    <div class="ai-recipe-content">${this.escapeHtml(suggestion.instructions)}</div>
+                </div>
+                
+                <div class="ai-recipe-section">
+                    <h4>⏱️ Cooking Time:</h4>
+                    <div class="ai-cooking-time">${this.escapeHtml(suggestion.cookingTime)}</div>
+                </div>
+                
+                <div class="ai-recipe-section">
+                    <h4>🌱 Waste Reduction:</h4>
+                    <div class="ai-recipe-content">${this.escapeHtml(suggestion.wasteReduction)}</div>
+                </div>
+            </div>
+        `;
+        
+        dialogBody.innerHTML = suggestionHTML;
+    }
+    
+    showAIError(message) {
+        const dialogBody = document.getElementById('ai-dialog-body');
+        
+        const errorHTML = `
+            <div class="ai-error">
+                <h4>❌ AI Suggestion Failed</h4>
+                <p>${this.escapeHtml(message)}</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">
+                    Please try again, or check if the AI service is running.
+                </p>
+            </div>
+        `;
+        
+        dialogBody.innerHTML = errorHTML;
     }
 }
 

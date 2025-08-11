@@ -5,9 +5,16 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { Ollama } = require('ollama');
 
 const app = express();
 const port = 3001;
+
+// 初始化Ollama客户端 (本地WSL2安装)
+// 如果默认端口被占用，可以使用11435
+const ollamaPort = process.env.OLLAMA_PORT || '11434';
+const ollama = new Ollama({ host: `http://localhost:${ollamaPort}` });
+console.log(`🤖 Ollama client initialized at localhost:${ollamaPort}`);
 
 // 中间件配置
 app.use(cors());
@@ -160,6 +167,112 @@ app.get('/api/recipes/search', async (req, res) => {
       success: false,
       error: 'Failed to search recipes' 
     });
+  }
+});
+
+// AI菜谱建议 - 基于现有食材推荐新菜谱
+app.post('/api/suggest-recipe', async (req, res) => {
+  console.log('🎲 Received AI suggestion request:', req.body);
+  
+  try {
+    const { ingredients } = req.body;
+    
+    if (!ingredients || !Array.isArray(ingredients) || ingredients.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Please provide at least one ingredient'
+      });
+    }
+    
+    console.log('🤖 Calling Ollama for recipe suggestion with ingredients:', ingredients);
+    
+    // 构建提示词
+    let prompt;
+        if (ingredients.includes('surprise me')) {
+            prompt = `You are a creative chef helping users discover new recipes. Please suggest ONE delicious and interesting recipe with common ingredients that most people have at home.
+
+Please respond ONLY with a valid JSON object in this exact format:
+{
+    "title": "Recipe name",
+    "ingredients": ["ingredient1", "ingredient2", "ingredient3"],
+    "instructions": "Step-by-step cooking instructions",
+  "cookingTime": "25 minutes",
+  "wasteReduction": "How this recipe helps reduce food waste or makes good use of common ingredients"
+}
+
+Make sure the recipe is practical, uses common ingredients, and the instructions are clear and easy to follow.`;
+        } else {
+            prompt = `You are a creative chef helping users reduce food waste. Based on the following ingredients: ${ingredients.join(', ')}, please suggest ONE delicious recipe that uses as many of these ingredients as possible.
+
+Please respond ONLY with a valid JSON object in this exact format:
+{
+  "title": "Recipe name",
+  "ingredients": ["ingredient1", "ingredient2", "ingredient3"],
+  "instructions": "Step-by-step cooking instructions",
+  "cookingTime": "25 minutes",
+  "wasteReduction": "How this recipe helps reduce food waste"
+}
+
+Make sure the recipe is practical and uses common cooking techniques. The instructions should be clear and easy to follow.`;
+        }
+    
+    // 调用Ollama
+    const response = await ollama.chat({
+      model: 'llama3.2:3b', // 使用WSL2中的轻量级模型
+      messages: [{ role: 'user', content: prompt }],
+      stream: false
+    });
+    
+    console.log('🤖 Raw Ollama response:', response.message.content);
+    
+    // 尝试解析JSON响应
+    let suggestion;
+    try {
+      // 清理响应，移除可能的markdown代码块标记
+      let cleanedResponse = response.message.content.trim();
+      if (cleanedResponse.startsWith('```json')) {
+        cleanedResponse = cleanedResponse.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+      } else if (cleanedResponse.startsWith('```')) {
+        cleanedResponse = cleanedResponse.replace(/^```\s*/, '').replace(/\s*```$/, '');
+      }
+      
+      suggestion = JSON.parse(cleanedResponse);
+    } catch (parseError) {
+      console.error('❌ Failed to parse AI response as JSON:', parseError);
+      
+      // 如果解析失败，返回一个默认的建议
+      suggestion = {
+        title: "Ingredient Stir-Fry",
+        ingredients: ingredients.concat(["soy sauce", "garlic", "oil"]),
+        instructions: `Heat oil in a pan, add minced garlic, then add ${ingredients.join(', ')} and stir-fry for 5-10 minutes. Season with soy sauce and serve hot.`,
+        cookingTime: "15 minutes",
+        wasteReduction: "This recipe helps you use up various ingredients in your fridge, preventing them from going bad."
+      };
+    }
+    
+    console.log('✅ Processed suggestion:', suggestion);
+    
+    res.json({
+      success: true,
+      suggestion: suggestion,
+      inputIngredients: ingredients
+    });
+    
+  } catch (err) {
+    console.error('❌ AI suggestion error:', err);
+    
+    // 如果Ollama服务不可用，返回一个友好的错误信息
+    if (err.code === 'ECONNREFUSED' || err.message.includes('connect')) {
+      res.status(503).json({
+        success: false,
+        error: 'AI service is temporarily unavailable. Please make sure Ollama is running.'
+      });
+    } else {
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to generate recipe suggestion. Please try again.'
+      });
+    }
   }
 });
 
