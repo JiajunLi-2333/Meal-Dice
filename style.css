@@ -14,6 +14,7 @@ p{
 
 body{
     width: 100%;
+    background-color: #1a1a1a;
 }
 
 .home {
@@ -24,7 +25,7 @@ body{
     width: 100%;
     height: 100vh;
     margin: 0;
-    background-color: #f8fafc;
+    background-color: #1a1a1a;
     gap: 1rem;
     padding-bottom: 0;
 }
@@ -50,25 +51,29 @@ body{
 }
 .home nav a {
     text-decoration: none;
-    color: #475569;
+    color: #e2e8f0;
     transition: color 0.3s ease;
     font-size: large;
     font-weight: bold;
+}
+
+.home nav a:hover {
+    color: #ff6b35;
 }
 .title{
     font-family: "Brush Script MT", "Lucida Handwriting", cursive;
     font-size: 10rem;
     letter-spacing: 0.5rem;
-    color: #334155;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(255, 107, 53, 0.3);
 }
 .Dice {
     font-family: "Brush Script MT", "Lucida Handwriting", cursive;
     font-size: 10rem !important;
-    color: #334155;
+    color: #ff6b35;
     perspective: 1000px;
     transform-style: preserve-3d;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 8px rgba(255, 107, 53, 0.5);
 }
 
 .Dice span {
@@ -94,8 +99,8 @@ body{
     width: 100%;
     height: auto;
     margin: 0;
-    background-color: #ffffff;
-    color: #1e293b;
+    background-color: #2d2d2d;
+    color: #e2e8f0;
     padding: 6rem 2rem 4rem 2rem;
     position: relative;
 }
@@ -108,7 +113,7 @@ body{
     text-align: center;
     margin-bottom: 4rem;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
+    color: #ffffff;
 }
 
 .About_content {
@@ -124,6 +129,7 @@ body{
     font-size: 3rem;
     margin-bottom: 2.5rem;
     margin-top: 4rem;
+    color: #ff6b35;
 }
 
 .About_content p {
@@ -159,7 +165,7 @@ body{
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: #f1f5f9;
+    background-color: #1a1a1a;
     overflow: hidden;
     padding-top: 0;
 }
@@ -168,19 +174,21 @@ body{
     align-items: flex-start;
     width: 55rem;
     height: 45rem;
-    background-color: #f7f7f7;
+    background-color: #2d2d2d;
     margin-right: 20rem;
     padding: 2rem;
     flex-shrink: 0;
     border-radius: 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid #404040;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
 .cardsbox_card:hover {
     transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 40px rgba(255, 107, 53, 0.2);
+    border-color: #ff6b35;
 }
 
 .cardsbox_card img {
@@ -194,7 +202,7 @@ body{
 .cardsbox_card h4 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2.5rem;
-    color: #171717;
+    color: #ffffff;
     margin-bottom: 1rem;
     text-align: left;
 }
@@ -202,14 +210,14 @@ body{
 .cardsbox_card p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.8rem;
-    color: #666;
+    color: #cbd5e1;
     margin-bottom: 0.8rem;
     text-align: left;
     line-height: 1.4;
 }
 
 .cardsbox_card .card_time{
-    color: red;
+    color: #ff6b35;
     font-weight: bold;
 }
 
@@ -233,8 +241,8 @@ body{
     width: 100%;
     min-height: 100vh;
     padding: 6rem 2rem 4rem 2rem;
-    background-color: #e2e8f0;
-    color: #1e293b;
+    background-color: #2d2d2d;
+    color: #e2e8f0;
     position: relative;
     margin: 0;
 }
@@ -245,7 +253,7 @@ body{
     font-weight: bold;
     text-align: center;
     margin-bottom: 3rem;
-    color: #1e293b;
+    color: #ffffff;
 }
 
 .share-form {
@@ -260,22 +268,23 @@ body{
     width: 100%;
     padding: 2rem;
     font-size: 1.6rem;
-    border: none;
+    border: 1px solid #404040;
     border-radius: 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    color: #666;
+    background: #404040;
+    color: #e2e8f0;
     outline: none;
     transition: all 0.3s ease;
 }
 
 .form-input:focus {
-    background: rgba(255, 255, 255, 1);
+    background: #4a4a4a;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.2);
+    border-color: #ff6b35;
 }
 
 .form-input::placeholder {
-    color: #999;
+    color: #94a3b8;
 }
 
 .form-textarea {
@@ -332,19 +341,19 @@ body{
     justify-content: center;
     width: 100%;
     height: 12rem;
-    border: 3px dashed rgba(255, 255, 255, 0.6);
+    border: 3px dashed #404040;
     border-radius: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(64, 64, 64, 0.3);
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 1.6rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #cbd5e1;
 }
 
 .upload-label:hover {
-    border-color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+    border-color: #ff6b35;
+    background: rgba(255, 107, 53, 0.1);
+    color: #ff6b35;
     transform: translateY(-2px);
 }
 
@@ -387,9 +396,9 @@ body{
 /* Footer Section */
 .footer {
     width: 100%;
-    background-color: #cbd5e1;
+    background-color: #404040;
     padding: 4rem 2rem;
-    color: #475569;
+    color: #e2e8f0;
     position: relative;
     margin: 0;
 }
@@ -414,7 +423,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.8rem;
     margin: 0;
-    color: #475569;
+    color: #e2e8f0;
     font-weight: 500;
 }
 
@@ -427,8 +436,8 @@ body{
 
 .social-link {
     padding: 1.2rem 2.5rem;
-    background: rgba(71, 85, 105, 0.1);
-    color: #475569;
+    background: rgba(255, 107, 53, 0.1);
+    color: #e2e8f0;
     text-decoration: none;
     border-radius: 3rem;
     font-family: Arial, Helvetica, sans-serif;
@@ -439,9 +448,10 @@ body{
 }
 
 .social-link:hover {
-    background: rgba(71, 85, 105, 0.2);
+    background: rgba(255, 107, 53, 0.2);
     transform: translateY(-2px);
-    border-color: rgba(71, 85, 105, 0.3);
+    border-color: #ff6b35;
+    color: #ff6b35;
 }
 
 .copyright {
@@ -451,7 +461,7 @@ body{
 .copyright p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.4rem;
-    color: #64748b;
+    color: #94a3b8;
     margin: 0;
 }
 
