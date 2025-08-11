@@ -22,6 +22,7 @@
             <h1 class = "title">Daily Meal</h1>
             <h1 class = "Dice">Dice</h1>
         </div>
+        
         <div class = "About">
             <h2>About Meal Dice</h2>
             <section class = "About_content">
@@ -40,14 +41,13 @@
                     Join thousands of home cooks who've discovered their new favorite meals through smart ingredient-based recommendations.
                 </p>
             </section>
-
         </div>
 
         <div class = "wrapper">
             <div class = "container">
                 <div class = "cardsbox">
                     <div class = "cardsbox_card" data-slug = "minced-pork-eggplant">
-                        <img src="https://via.placeholder.com/250x180/cccccc/666666?text=Minced+Pork+Eggplant" alt="Minced Pork Eggplant">
+                        <img src="/public/image/minedpork/mincedpork.png" alt="Minced Pork Eggplant">
                         <h4 class = "card1">Minced Pork Eggplant</h4>
                         <p class = "card1_ingredient">Eggplant, Minced Pork, Onion...</p>
                         <p class = "card_time">25 mins</p>
@@ -79,8 +79,50 @@
                 </div>
             </div>
         </div>
-        <div class = "empty"> KEEP SCROLL</div>
-        <div class = "empty"> KEEP SCROLL</div>
+        
+        <div class = "share">
+            <h2>Share Your Dish</h2>
+            <form class="share-form">
+                <input type="text" placeholder="Name" name="name" class="form-input name-input">
+                
+                <input type="text" placeholder="Ingredients & Seasonings" name="ingredients" class="form-input ingredients-input">
+                
+                <input type="text" placeholder="Steps" name="steps" class="form-input steps-input">
+                
+                <input type="text" placeholder="Cooking Time" name="cookingTime" class="form-input cooking-time-input">
+                
+                <div class="form-bottom">
+                    <div class="upload-section">
+                        <input type="file" name="image" id="photo-upload" class="file-input" accept="image/*">
+                        <label for="photo-upload" class="upload-label">
+                            <span>Upload Photo (Optional)</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="share-button">Share</button>
+            </form>
+        </div>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="contact-info">
+                    <p class="contact-item">Email: info@mealdice.com</p>
+                    <p class="contact-item">Phone: (123) 456-7890</p>
+                    <p class="contact-item">Address: 123 Green Way, New York, NY 10025</p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Twitter</a>
+                </div>
+                
+                <div class="copyright">
+                    <p>© 2025 Meal Dice Solutions. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
 
         <script type="module" src="main.js"></script>
     </body>
