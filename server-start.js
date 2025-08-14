@@ -1,4 +1,4 @@
-// 服务器启动脚本 (CommonJS格式)
+
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
@@ -10,19 +10,17 @@ const { Ollama } = require('ollama');
 const app = express();
 const port = 3001;
 
-// 初始化Ollama客户端 (本地WSL2安装)
-// 如果默认端口被占用，可以使用11435
-const ollamaPort = process.env.OLLAMA_PORT || '11434';
-const ollama = new Ollama({ host: `http://localhost:${ollamaPort}` });
-console.log(`🤖 Ollama client initialized at localhost:${ollamaPort}`);
 
-// 中间件配置
+const ollama = new Ollama({ host: 'http://localhost:11435' });
+console.log('🤖 Ollama client initialized at localhost:11435');
+
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
-// 数据库连接配置
+
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
@@ -31,7 +29,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-// 测试数据库连接
+
 async function testConnection() {
   try {
     const client = await pool.connect();
@@ -42,13 +40,13 @@ async function testConnection() {
   }
 }
 
-// 创建uploads目录
+
 if (!fs.existsSync('uploads')) {
   fs.mkdirSync('uploads');
   console.log('📁 Created uploads directory');
 }
 
-// 配置multer用于文件上传
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -73,9 +71,7 @@ const upload = multer({
   }
 });
 
-// API路由
 
-// 创建新食谱
 app.post('/api/recipes', upload.single('image'), async (req, res) => {
   console.log('📝 Received recipe submission:', req.body);
   console.log('📷 Uploaded file:', req.file);
@@ -310,7 +306,9 @@ app.listen(port, () => {
   console.log(`   POST http://localhost:${port}/api/recipes - Create recipe`);
   console.log(`   GET  http://localhost:${port}/api/recipes - Get all recipes`);
   console.log(`   GET  http://localhost:${port}/api/recipes/search?ingredient=<name> - Search recipes`);
+  console.log(`   POST http://localhost:${port}/api/suggest-recipe - AI recipe suggestions`);
   console.log(`   GET  http://localhost:${port}/api/health - Health check`);
+  console.log(`🤖 Ollama integration enabled at localhost:11435`);
   testConnection();
 });
 

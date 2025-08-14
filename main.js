@@ -196,8 +196,79 @@ document.addEventListener('click', (e) => {
 // Navigation functionality
 function initNavigation() {
     const navbar = document.querySelector('.navbar');
+    const navContainer = document.querySelector('.nav-container');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section, #home, #about, #discover, #share, #contact');
+    
+    // 定义每个页面的颜色配置
+    const sectionColors = {
+        home: {
+            background: 'rgba(255, 255, 255, 0.1)',
+            border: 'rgba(255, 255, 255, 0.2)',
+            textColor: 'rgba(255, 255, 255, 0.9)',
+            hoverBg: 'rgba(255, 255, 255, 0.2)',
+            activeBg: 'rgba(255, 255, 255, 0.25)'
+        },
+        about: {
+            background: 'rgba(0, 0, 0, 0.1)',
+            border: 'rgba(0, 0, 0, 0.2)',
+            textColor: 'rgba(0, 0, 0, 0.8)',
+            hoverBg: 'rgba(0, 0, 0, 0.1)',
+            activeBg: 'rgba(0, 0, 0, 0.15)',
+            shadow: '0 8px 32px rgba(0, 0, 0, 0.15)'
+        },
+        discover: {
+            background: 'rgba(255, 255, 255, 0.15)',
+            border: 'rgba(255, 255, 255, 0.3)',
+            textColor: 'rgba(255, 255, 255, 0.9)',
+            hoverBg: 'rgba(255, 255, 255, 0.25)',
+            activeBg: 'rgba(255, 255, 255, 0.3)'
+        },
+        share: {
+            background: 'rgba(255, 255, 255, 0.15)',
+            border: 'rgba(255, 255, 255, 0.3)',
+            textColor: 'rgba(255, 255, 255, 0.9)',
+            hoverBg: 'rgba(255, 255, 255, 0.25)',
+            activeBg: 'rgba(255, 255, 255, 0.3)'
+        },
+        contact: {
+            background: 'rgba(255, 255, 255, 0.15)',
+            border: 'rgba(255, 255, 255, 0.3)',
+            textColor: 'rgba(255, 255, 255, 0.9)',
+            hoverBg: 'rgba(255, 255, 255, 0.25)',
+            activeBg: 'rgba(255, 255, 255, 0.3)'
+        }
+    };
+    
+    // 应用颜色配置到导航栏
+    function applyNavbarColors(colorConfig) {
+        if (!navContainer) return;
+        
+        // 更新导航栏容器样式
+        navContainer.style.background = colorConfig.background;
+        navContainer.style.borderColor = colorConfig.border;
+        if (colorConfig.shadow) {
+            navContainer.style.boxShadow = colorConfig.shadow;
+        }
+        
+        // 更新所有导航链接的颜色
+        navLinks.forEach(link => {
+            link.style.color = colorConfig.textColor;
+        });
+        
+        // 更新搜索按钮颜色
+        const searchBtn = document.querySelector('.search-btn');
+        if (searchBtn) {
+            searchBtn.style.color = colorConfig.textColor;
+            searchBtn.style.borderColor = colorConfig.border;
+            searchBtn.style.background = colorConfig.background;
+        }
+        
+        // 动态更新CSS变量以影响hover和active状态
+        document.documentElement.style.setProperty('--nav-hover-bg', colorConfig.hoverBg);
+        document.documentElement.style.setProperty('--nav-active-bg', colorConfig.activeBg);
+        document.documentElement.style.setProperty('--nav-text-color', colorConfig.textColor);
+    }
     
     // Handle navbar scroll animation
     function handleNavbarScroll() {
@@ -257,6 +328,11 @@ function initNavigation() {
         if (wrapper && scrollPosition >= wrapper.offsetTop && 
             scrollPosition < wrapper.offsetTop + wrapper.offsetHeight) {
             currentSection = 'discover';
+        }
+        
+        // 根据当前页面应用颜色
+        if (currentSection && sectionColors[currentSection]) {
+            applyNavbarColors(sectionColors[currentSection]);
         }
         
         // Update active class

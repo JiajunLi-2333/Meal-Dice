@@ -1,3 +1,9 @@
+:root {
+    --nav-hover-bg: rgba(255, 255, 255, 0.2);
+    --nav-active-bg: rgba(255, 255, 255, 0.25);
+    --nav-text-color: rgba(255, 255, 255, 0.9);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -52,23 +58,23 @@ body{
     margin: 0 auto;
     padding: 1rem 2rem;
     width: 100%;
-    background: rgba(255, 254, 247, 0.9);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(218, 165, 32, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50px;
-    box-shadow: 0 8px 32px rgba(139, 115, 85, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar.scrolled .nav-container {
     padding: 0.8rem 1.5rem;
     max-width: 900px;
-    background: rgba(255, 254, 247, 0.95);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(218, 165, 32, 0.3);
-    box-shadow: 0 8px 32px rgba(218, 165, 32, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .nav-logo {
@@ -80,7 +86,7 @@ body{
 .logo-img {
     height: 4rem;
     width: auto;
-    filter: drop-shadow(0 0 10px rgba(218, 165, 32, 0.3));
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
     transition: all 0.5s ease;
 }
 
@@ -89,7 +95,7 @@ body{
 }
 
 .logo-img:hover {
-    filter: drop-shadow(0 0 15px rgba(218, 165, 32, 0.5));
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
     transform: scale(1.05);
 }
 
@@ -120,7 +126,7 @@ body{
 
 .nav-link {
     text-decoration: none;
-    color: #6b5b47;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1.6rem;
     font-weight: 600;
     padding: 0.8rem 1.5rem;
@@ -128,6 +134,7 @@ body{
     transition: all 0.3s ease;
     position: relative;
     white-space: nowrap;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .navbar.scrolled .nav-link {
@@ -136,22 +143,24 @@ body{
 }
 
 .nav-link:hover {
-    color: #d2691e;
-    background: rgba(218, 165, 32, 0.15);
+    color: var(--nav-text-color, #ffffff) !important;
+    background: var(--nav-hover-bg, rgba(255, 255, 255, 0.2)) !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .nav-link.active {
-    color: #d2691e;
-    background: rgba(218, 165, 32, 0.25);
-    box-shadow: 0 0 20px rgba(218, 165, 32, 0.3);
+    color: var(--nav-text-color, #ffffff) !important;
+    background: var(--nav-active-bg, rgba(255, 255, 255, 0.25)) !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .search-btn {
-    background: rgba(218, 165, 32, 0.1);
-    border: 2px solid rgba(218, 165, 32, 0.3);
-    color: #6b5b47;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.9);
     padding: 0.8rem;
     border-radius: 50%;
     cursor: pointer;
@@ -162,6 +171,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .navbar.scrolled .search-btn {
@@ -172,10 +182,11 @@ body{
 }
 
 .search-btn:hover {
-    background: rgba(218, 165, 32, 0.2);
-    border-color: #d2691e;
+    background: var(--nav-hover-bg, rgba(255, 255, 255, 0.2)) !important;
+    border-color: var(--nav-text-color, #ffffff) !important;
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 5px 15px rgba(218, 165, 32, 0.3);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    color: var(--nav-text-color, #ffffff) !important;
 }
 
 .home {
@@ -218,7 +229,7 @@ body{
 
 /* Home到About的波浪分割线 */
 .home .wave-divider .shape-fill {
-    fill: #f5f5dc; /* About section的背景色 */
+    fill: #ffffff; /* About section的背景色 */
 }
 
 
@@ -279,17 +290,17 @@ body{
     font-family: "Brush Script MT", "Lucida Handwriting", cursive;
     font-size: 10rem;
     letter-spacing: 0.5rem;
-    color: #d2691e;
-    text-shadow: 2px 2px 8px rgba(218, 165, 32, 0.3);
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     margin: 0;
 }
 .Dice {
     font-family: "Brush Script MT", "Lucida Handwriting", cursive;
     font-size: 10rem !important;
-    color: #d2691e;
+    color: #ffffff;
     perspective: 1000px;
     transform-style: preserve-3d;
-    text-shadow: 2px 2px 8px rgba(218, 165, 32, 0.5);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     display: inline-block;
     font-weight: bold;
 }
@@ -317,7 +328,7 @@ body{
     width: 100%;
     height: 100vh;
     margin: 0;
-    background-color: #f5f5dc;
+    background-color: #ffffff;
     color: #5d4e37;
     padding: 6rem 2rem 4rem 2rem;
     position: relative;
@@ -325,7 +336,7 @@ body{
 
 /* About到Discover的波浪分割线 */
 .About .wave-divider .shape-fill {
-    fill: #fffef7; /* Discover section的背景色 */
+    fill: #ff6b35; /* Discover section的背景色 */
 }
 
 
@@ -336,7 +347,7 @@ body{
     text-align: center;
     margin-bottom: 4rem;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #8b7355;
+    color: #000000;
 }
 
 .About_content {
@@ -352,7 +363,7 @@ body{
     font-size: 4rem ;
     margin-bottom: 2.5rem;
     margin-top: 4rem;
-    color: #d2691e;
+    color: #ff6b35;
 }
 
 .About_content p {
@@ -403,7 +414,7 @@ body{
 }
 
 .wrapper .wave-divider .shape-fill {
-    fill: #f0e68c; /* Share section的背景色 */
+    fill: #4a90e2; /* Share section的背景色 */
 }
 
 .container{
@@ -412,7 +423,7 @@ body{
     align-items: center;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to bottom, #fffef7 0%, #fffef7 80%, #f0e68c 100%);
+    background: linear-gradient(to bottom, #ff6b35 0%, #ff6b35 80%, #4a90e2 100%);
     overflow: hidden;
     padding-top: 0;
 }
@@ -421,7 +432,7 @@ body{
     align-items: flex-start;
     width: 55rem;
     height: 45rem;
-    background-color: #fefcf8;
+    background-color: #ffffff;
     margin-right: 20rem;
     padding: 2rem;
     flex-shrink: 0;
@@ -449,7 +460,7 @@ body{
 .cardsbox_card h4 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2.5rem;
-    color: #5d4e37;
+    color: #000000;
     margin-bottom: 1rem;
     text-align: left;
 }
@@ -464,7 +475,7 @@ body{
 }
 
 .cardsbox_card .card_time{
-    color: #d2691e;
+    color: #ff6b35;
     font-weight: bold;
 }
 
@@ -488,7 +499,7 @@ body{
     width: 100%;
     min-height: 100vh;
     padding: 6rem 2rem 4rem 2rem;
-    background-color: #f0e68c;
+    background-color: #4a90e2;
     color: #5d4e37;
     position: relative;
     margin: 0;
@@ -496,7 +507,7 @@ body{
 
 /* Share到Footer的波浪分割线 */
 .share .wave-divider .shape-fill {
-    fill: #8b7355; /* Footer的背景色 */
+    fill: #ff6b35; /* Footer的背景色 */
 }
 
 .share h2 {
@@ -505,7 +516,7 @@ body{
     font-weight: bold;
     text-align: center;
     margin-bottom: 3rem;
-    color: #8b7355;
+    color: #ffffff;
 }
 
 .share-form {
@@ -614,19 +625,19 @@ body{
     padding: 2rem;
     font-size: 2rem;
     font-weight: bold;
-    color: white;
-    background: linear-gradient(45deg, #DAA520, #D2691E);
+    color: #ffffff;
+    background: #ff6b35;
     border: none;
     border-radius: 3rem;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 1rem;
-    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
 }
 
 .share-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(218, 165, 32, 0.4);
+    box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
 }
 
 .share-button:active {
@@ -648,7 +659,7 @@ body{
 /* Footer Section */
 .footer {
     width: 100%;
-    background-color: #8b7355;
+    background-color: #ff6b35;
     padding: 4rem 2rem;
     color: #fffef7;
     position: relative;
@@ -708,6 +719,58 @@ body{
 
 .copyright {
     margin-top: 1rem;
+}
+
+.email-contact {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 40rem;
+    margin: 2rem 0;
+}
+
+.email-input {
+    flex: 1;
+    padding: 1.5rem;
+    font-size: 1.4rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.email-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.email-input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+}
+
+.email-submit {
+    padding: 1.5rem 2.5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ff6b35;
+    background: #ffffff;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.email-submit:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
 }
 
 .copyright p {
@@ -853,6 +916,23 @@ body{
     }
     
     .contact-item {
+        font-size: 1.6rem;
+    }
+    
+    .email-contact {
+        flex-direction: column;
+        gap: 1.5rem;
+        max-width: 100%;
+    }
+    
+    .email-input {
+        width: 100%;
+        font-size: 1.6rem;
+    }
+    
+    .email-submit {
+        width: 100%;
+        padding: 1.8rem 2rem;
         font-size: 1.6rem;
     }
     
